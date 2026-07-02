@@ -25,6 +25,13 @@ import org.joml.Matrix4f;
 public final class DisplayManager {
     private static final String ROLE_ITEM = "item";
     private static final String ROLE_INTERACTION = "interaction";
+    private static final long DUPLICATE_CLICK_SUPPRESS_MS = 250L;
+
+    private enum ClickCooldown {
+        READY,
+        DUPLICATE,
+        COOLDOWN
+    }
 
     private final GiantItemDisplaysPlugin plugin;
     private final DisplayStorage storage;
@@ -204,12 +211,24 @@ public final class DisplayManager {
             plugin.lang().send(player, "click-no-permission");
             return true;
         }
-        if (isCoolingDown(player, data.id())) {
+        String command = preparedCommand(player, data);
+        if (command == null) {
+            plugin.lang().send(player, "command-not-configured");
+            return true;
+        }
+        ClickCooldown cooldown = clickCooldown(player, data.id());
+        if (cooldown == ClickCooldown.DUPLICATE) {
+            return true;
+        }
+        if (cooldown == ClickCooldown.COOLDOWN) {
             plugin.lang().send(player, "click-cooldown");
             return true;
         }
 
-        runDisplayCommand(player, data);
+        markClick(player, data.id());
+        if (!runDisplayCommand(player, data, command)) {
+            return true;
+        }
         plugin.lang().send(player, "click-success", Map.of("id", data.id()));
         return true;
     }
@@ -332,7 +351,11 @@ public final class DisplayManager {
     }
 
     private void applyInteraction(Interaction interaction, DisplayData data, Location location) {
-        interaction.teleport(location);
+        Location hitboxLocation = location.clone();
+        if (plugin.getConfig().getBoolean("settings.center-interaction-hitbox", true)) {
+            hitboxLocation.subtract(0.0D, data.hitboxHeight() / 2.0D, 0.0D);
+        }
+        interaction.teleport(hitboxLocation);
         interaction.setInteractionWidth((float) Math.max(0.1D, data.hitboxWidth()));
         interaction.setInteractionHeight((float) Math.max(0.1D, data.hitboxHeight()));
         interaction.setResponsive(true);
@@ -358,25 +381,34 @@ public final class DisplayManager {
         return Math.max(1, plugin.getConfig().getInt("settings.display-interpolation-duration", 4));
     }
 
-    private void runDisplayCommand(Player player, DisplayData data) {
+    private String preparedCommand(Player player, DisplayData data) {
         String command = data.commandValue();
         if (command == null || command.isBlank()) {
-            return;
+            return null;
         }
         command = normalizeCommand(applyPlaceholders(command, player, data));
         if (command.isBlank()) {
-            return;
+            return null;
         }
+        return command;
+    }
 
+    private boolean runDisplayCommand(Player player, DisplayData data, String command) {
         try {
+            boolean handled;
             if ("player".equalsIgnoreCase(data.commandExecutor())) {
-                Bukkit.dispatchCommand(player, command);
+                handled = Bukkit.dispatchCommand(player, command);
             } else {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                handled = Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
             }
+            if (!handled) {
+                plugin.lang().send(player, "command-error");
+            }
+            return handled;
         } catch (RuntimeException exception) {
             plugin.getLogger().warning("Could not run command for display " + data.id() + ": " + exception.getMessage());
             plugin.lang().send(player, "command-error");
+            return false;
         }
     }
 
@@ -403,19 +435,26 @@ public final class DisplayManager {
                 .replace("%id%", data.id());
     }
 
-    private boolean isCoolingDown(Player player, String id) {
+    private ClickCooldown clickCooldown(Player player, String id) {
         long cooldown = Math.max(0L, plugin.getConfig().getLong("settings.click-cooldown-ms", 1000L));
         if (cooldown == 0L) {
-            return false;
+            return ClickCooldown.READY;
         }
         String key = player.getUniqueId() + ":" + id.toLowerCase(Locale.ROOT);
         long now = System.currentTimeMillis();
         long last = clickCooldowns.getOrDefault(key, 0L);
         if (now - last < cooldown) {
-            return true;
+            if (now - last <= DUPLICATE_CLICK_SUPPRESS_MS) {
+                return ClickCooldown.DUPLICATE;
+            }
+            return ClickCooldown.COOLDOWN;
         }
-        clickCooldowns.put(key, now);
-        return false;
+        return ClickCooldown.READY;
+    }
+
+    private void markClick(Player player, String id) {
+        String key = player.getUniqueId() + ":" + id.toLowerCase(Locale.ROOT);
+        clickCooldowns.put(key, System.currentTimeMillis());
     }
 
     private void removeRuntimeEntities(DisplayData data, boolean clearBarriers) {

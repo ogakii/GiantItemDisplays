@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.6
+
+- Centered the invisible `Interaction` hitbox vertically around the display.
+- Added `settings.center-interaction-hitbox`.
+- Added a no-command-configured message when clicking a display without a command.
+- Shows `command-error` when Bukkit rejects a configured click command.
+- Prevented immediate duplicate click events from showing misleading cooldown messages.
+
 ## 1.0.5
 
 - Added a fallback entity interaction listener so clicks on `Interaction` hitboxes are detected more reliably across Paper versions.

@@ -1,6 +1,7 @@
 settings:
   animation-tick-rate: 1
   display-interpolation-duration: 4
+  center-interaction-hitbox: true
   default-scale: 3.0
   default-hitbox-width: 2.0
   default-hitbox-height: 2.0

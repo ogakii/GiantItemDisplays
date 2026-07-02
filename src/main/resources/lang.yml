@@ -18,6 +18,7 @@ display-moved: "<green>Display <white>%id%</white> moved to your current locatio
 item-required: "<red>Hold an item in your main hand."
 item-set: "<green>Display <white>%id%</white> item updated."
 command-set: "<green>Command for <white>%id%</white> set to <white>%executor%: %command%</white>."
+command-not-configured: "<red>This display does not have a command configured."
 permission-set: "<green>Click permission for <white>%id%</white> set to <white>%permission%</white>."
 scale-set: "<green>Display <white>%id%</white> scale set to <white>%scale%</white>."
 scale3d-set: "<green>Display <white>%id%</white> 3D scale set to <white>%x%, %y%, %z%</white>."
