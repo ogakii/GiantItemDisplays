@@ -23,6 +23,7 @@ public final class GiantItemDisplaysPlugin extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         saveResourceIfMissing("lang.yml");
+        saveResourceIfMissing("lang-ptbr.yml");
         saveResourceIfMissing("displays.yml");
 
         markerKey = new NamespacedKey(this, "plugin_entity");

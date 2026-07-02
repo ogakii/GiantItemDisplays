@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.2
+
+- Added a Brazilian Portuguese language template as `lang-ptbr.yml`.
+- Documented how to switch the server messages to Portuguese.
+
 ## 1.0.1
 
 - Translated in-game messages, build output and internal logs to English.

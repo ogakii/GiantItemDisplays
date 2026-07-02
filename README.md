@@ -23,7 +23,7 @@ Professional Paper plugin for interactive giant item displays. It uses `ItemDisp
 
 ## Installation
 
-1. Download or build `GiantItemDisplays-1.0.0.jar`.
+1. Download or build `GiantItemDisplays-1.0.2.jar`.
 2. Put the jar in your Paper server `plugins` folder.
 3. Start or restart the server.
 4. Edit `plugins/GiantItemDisplays/config.yml` and `lang.yml` if needed.
@@ -45,8 +45,19 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -Clean
 The compiled jar is created at:
 
 ```text
-target/GiantItemDisplays-1.0.1.jar
+target/GiantItemDisplays-1.0.2.jar
 ```
+
+## Language Files
+
+The default `lang.yml` is English. A Brazilian Portuguese template is included as `lang-ptbr.yml`.
+
+To use Portuguese messages:
+
+1. Start the server once so the plugin creates its folder.
+2. Stop the server.
+3. Copy the contents of `plugins/GiantItemDisplays/lang-ptbr.yml` into `plugins/GiantItemDisplays/lang.yml`.
+4. Start the server again or run `/gid reload`.
 
 ## Quick Start
 
