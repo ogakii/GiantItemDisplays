@@ -22,6 +22,7 @@ public final class GiantItemDisplaysPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        applySmoothAnimationDefaults();
         saveResourceIfMissing("lang.yml");
         saveResourceIfMissing("lang-en.yml");
         saveResourceIfMissing("lang-ptbr.yml");
@@ -84,6 +85,21 @@ public final class GiantItemDisplaysPlugin extends JavaPlugin {
 
     private long animationTickRate() {
         return Math.max(1L, getConfig().getLong("settings.animation-tick-rate", 1L));
+    }
+
+    private void applySmoothAnimationDefaults() {
+        boolean changed = false;
+        if (getConfig().getInt("settings.animation-tick-rate", 1) > 1) {
+            getConfig().set("settings.animation-tick-rate", 1);
+            changed = true;
+        }
+        if (getConfig().getInt("settings.display-interpolation-duration", 4) < 4) {
+            getConfig().set("settings.display-interpolation-duration", 4);
+            changed = true;
+        }
+        if (changed) {
+            saveConfig();
+        }
     }
 
     private void saveResourceIfMissing(String resource) {

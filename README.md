@@ -23,7 +23,7 @@ Professional Paper plugin for interactive giant item displays. It uses `ItemDisp
 
 ## Installation
 
-1. Download or build `GiantItemDisplays-1.0.4.jar`.
+1. Download or build `GiantItemDisplays-1.0.5.jar`.
 2. Put the jar in your Paper server `plugins` folder.
 3. Start or restart the server.
 4. Edit `plugins/GiantItemDisplays/config.yml` and `lang.yml` if needed.
@@ -45,7 +45,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -Clean
 The compiled jar is created at:
 
 ```text
-target/GiantItemDisplays-1.0.4.jar
+target/GiantItemDisplays-1.0.5.jar
 ```
 
 ## Smooth Animation
@@ -55,10 +55,19 @@ The default animation task runs every tick and uses Display interpolation to kee
 ```yaml
 settings:
   animation-tick-rate: 1
-  display-interpolation-duration: 2
+  display-interpolation-duration: 4
 ```
 
-If an older server config already has `animation-tick-rate: 2`, change it to `1` and run `/gid reload`.
+When upgrading from an older version, the plugin automatically migrates older animation defaults to these smoother values.
+
+For click commands, set only the command that should run after the click:
+
+```text
+/gid setcommand rtp console rtp %player%
+/gid setcommand shop player warp shop
+```
+
+Command values starting with `/` or `./` are normalized before execution.
 
 ## Language Files
 

@@ -355,7 +355,7 @@ public final class DisplayManager {
     }
 
     private int animationInterpolationDuration() {
-        return Math.max(1, plugin.getConfig().getInt("settings.display-interpolation-duration", 2));
+        return Math.max(1, plugin.getConfig().getInt("settings.display-interpolation-duration", 4));
     }
 
     private void runDisplayCommand(Player player, DisplayData data) {
@@ -363,9 +363,9 @@ public final class DisplayManager {
         if (command == null || command.isBlank()) {
             return;
         }
-        command = applyPlaceholders(command, player, data);
-        if (command.startsWith("/")) {
-            command = command.substring(1);
+        command = normalizeCommand(applyPlaceholders(command, player, data));
+        if (command.isBlank()) {
+            return;
         }
 
         try {
@@ -378,6 +378,18 @@ public final class DisplayManager {
             plugin.getLogger().warning("Could not run command for display " + data.id() + ": " + exception.getMessage());
             plugin.lang().send(player, "command-error");
         }
+    }
+
+    private String normalizeCommand(String command) {
+        String normalized = command.strip();
+        while (normalized.startsWith("/") || normalized.startsWith("./")) {
+            if (normalized.startsWith("./")) {
+                normalized = normalized.substring(2).stripLeading();
+            } else {
+                normalized = normalized.substring(1).stripLeading();
+            }
+        }
+        return normalized;
     }
 
     private String applyPlaceholders(String command, Player player, DisplayData data) {

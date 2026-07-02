@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5
+
+- Added a fallback entity interaction listener so clicks on `Interaction` hitboxes are detected more reliably across Paper versions.
+- Ignored off-hand interaction events to prevent accidental duplicate command execution.
+- Normalized command values that start with `/` or `./` before dispatching them.
+- Increased the default Display interpolation duration for smoother rotation.
+- Automatically migrates older animation config values to smoother defaults.
+
 ## 1.0.4
 
 - Made display animation smoother by updating every tick by default.
