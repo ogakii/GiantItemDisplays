@@ -1,0 +1,24 @@
+# Build output
+target/
+.build-tools/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Local server/runtime files
+plugins/
+logs/
+crash-reports/
+world/
+world_nether/
+world_the_end/
+
+# Local archives
+*.zip
+outputs/

@@ -1,0 +1,35 @@
+name: GiantItemDisplays
+version: 1.0.0
+main: me.codex.giantitemdisplays.GiantItemDisplaysPlugin
+api-version: '1.21'
+author: Ogaki
+description: Professional interactive giant ItemDisplay displays for Paper 1.21.x. Submitted by Ogaki.
+
+commands:
+  gid:
+    description: Manage GiantItemDisplays displays.
+    usage: /gid help
+    aliases:
+      - giantitemdisplays
+
+permissions:
+  giantitemdisplays.admin:
+    description: Full access to GiantItemDisplays.
+    default: op
+    children:
+      giantitemdisplays.create: true
+      giantitemdisplays.remove: true
+      giantitemdisplays.reload: true
+      giantitemdisplays.interact: true
+  giantitemdisplays.create:
+    description: Allows creating and editing displays.
+    default: op
+  giantitemdisplays.remove:
+    description: Allows removing displays.
+    default: op
+  giantitemdisplays.reload:
+    description: Allows reloading the plugin.
+    default: op
+  giantitemdisplays.interact:
+    description: Allows clicking displays.
+    default: true
