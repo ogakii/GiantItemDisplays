@@ -32,7 +32,7 @@ public final class DisplayManager {
     private final Map<String, DisplayData> displays = new LinkedHashMap<>();
     private final Map<String, DisplayRuntime> runtimes = new HashMap<>();
     private final Map<String, Long> clickCooldowns = new HashMap<>();
-    private long animationStep;
+    private double animationTime;
 
     public DisplayManager(GiantItemDisplaysPlugin plugin, DisplayStorage storage) {
         this.plugin = plugin;
@@ -169,8 +169,8 @@ public final class DisplayManager {
         saveAll();
     }
 
-    public void tickAnimations() {
-        animationStep++;
+    public void tickAnimations(long elapsedTicks) {
+        animationTime += elapsedTicks / 2.0D;
         for (DisplayData data : displays.values()) {
             DisplayRuntime runtime = runtimes.get(data.id());
             if (runtime == null || !runtime.hasValidItemDisplay()) {
@@ -325,6 +325,8 @@ public final class DisplayManager {
         itemDisplay.teleport(data.toLocation());
         itemDisplay.setItemStack(data.item().clone());
         itemDisplay.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.GROUND);
+        itemDisplay.setInterpolationDelay(0);
+        itemDisplay.setInterpolationDuration(animationInterpolationDuration());
         itemDisplay.setGlowing(data.glow());
         updateTransformation(data);
     }
@@ -341,15 +343,19 @@ public final class DisplayManager {
         if (runtime == null || !runtime.hasValidItemDisplay()) {
             return;
         }
-        float yaw = (float) Math.toRadians(data.yaw() + (data.spin() ? animationStep * data.spinSpeed() : 0.0D));
+        float yaw = (float) Math.toRadians(data.yaw() + (data.spin() ? animationTime * data.spinSpeed() : 0.0D));
         float pitch = (float) Math.toRadians(data.pitch());
-        float bob = data.bob() ? (float) (Math.sin(animationStep * data.bobSpeed()) * data.bobHeight()) : 0.0F;
+        float bob = data.bob() ? (float) (Math.sin(animationTime * data.bobSpeed()) * data.bobHeight()) : 0.0F;
         Matrix4f matrix = new Matrix4f()
                 .translation(0.0F, bob, 0.0F)
                 .rotateY(yaw)
                 .rotateX(pitch)
                 .scale((float) data.scaleX(), (float) data.scaleY(), (float) data.scaleZ());
         runtime.itemDisplay().setTransformationMatrix(matrix);
+    }
+
+    private int animationInterpolationDuration() {
+        return Math.max(1, plugin.getConfig().getInt("settings.display-interpolation-duration", 2));
     }
 
     private void runDisplayCommand(Player player, DisplayData data) {

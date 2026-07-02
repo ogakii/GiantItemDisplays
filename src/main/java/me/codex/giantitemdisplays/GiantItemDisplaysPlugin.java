@@ -53,8 +53,8 @@ public final class GiantItemDisplaysPlugin extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new DisplayListener(displayManager), this);
 
-        animationTask = new AnimationTask(displayManager);
-        long rate = Math.max(1L, getConfig().getLong("settings.animation-tick-rate", 2L));
+        long rate = animationTickRate();
+        animationTask = new AnimationTask(displayManager, rate);
         animationTask.runTaskTimer(this, rate, rate);
     }
 
@@ -77,9 +77,13 @@ public final class GiantItemDisplaysPlugin extends JavaPlugin {
         if (animationTask != null) {
             animationTask.cancel();
         }
-        animationTask = new AnimationTask(displayManager);
-        long rate = Math.max(1L, getConfig().getLong("settings.animation-tick-rate", 2L));
+        long rate = animationTickRate();
+        animationTask = new AnimationTask(displayManager, rate);
         animationTask.runTaskTimer(this, rate, rate);
+    }
+
+    private long animationTickRate() {
+        return Math.max(1L, getConfig().getLong("settings.animation-tick-rate", 1L));
     }
 
     private void saveResourceIfMissing(String resource) {

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.4
+
+- Made display animation smoother by updating every tick by default.
+- Added Display interpolation through `settings.display-interpolation-duration`.
+- Preserved the previous visual spin/bob speed while increasing animation update smoothness.
+
 ## 1.0.3
 
 - Added `lang-en.yml` as a separate English template.
