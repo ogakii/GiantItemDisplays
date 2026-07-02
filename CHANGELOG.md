@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+
+- Added `lang-en.yml` as a separate English template.
+- Kept `lang.yml` as the default English language file for normal downloads.
+- Renamed the Portuguese release asset to `lang-ptbr.yml` to avoid confusion.
+
 ## 1.0.2
 
 - Added a Brazilian Portuguese language template as `lang-ptbr.yml`.

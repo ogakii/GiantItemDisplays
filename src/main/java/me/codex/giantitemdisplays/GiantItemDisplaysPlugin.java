@@ -23,6 +23,7 @@ public final class GiantItemDisplaysPlugin extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         saveResourceIfMissing("lang.yml");
+        saveResourceIfMissing("lang-en.yml");
         saveResourceIfMissing("lang-ptbr.yml");
         saveResourceIfMissing("displays.yml");
 
