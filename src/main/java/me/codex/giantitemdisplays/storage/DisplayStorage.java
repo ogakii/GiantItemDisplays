@@ -101,7 +101,7 @@ public final class DisplayStorage {
         try {
             config.save(file);
         } catch (IOException exception) {
-            plugin.getLogger().severe("Nao foi possivel salvar displays.yml: " + exception.getMessage());
+            plugin.getLogger().severe("Could not save displays.yml: " + exception.getMessage());
         }
     }
 

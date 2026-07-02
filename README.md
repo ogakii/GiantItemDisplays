@@ -45,7 +45,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -Clean
 The compiled jar is created at:
 
 ```text
-target/GiantItemDisplays-1.0.0.jar
+target/GiantItemDisplays-1.0.1.jar
 ```
 
 ## Quick Start

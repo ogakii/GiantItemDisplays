@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- Translated in-game messages, build output and internal logs to English.
+- Kept Ogaki credits in English across the plugin and repository.
+
 ## 1.0.0
 
 - Initial public release of GiantItemDisplays.

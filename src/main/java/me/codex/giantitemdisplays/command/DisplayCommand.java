@@ -223,7 +223,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         if (args.length != 3) {
-            sendUsage(sender, "/" + label + " setscale <id> <valor>");
+            sendUsage(sender, "/" + label + " setscale <id> <value>");
             return true;
         }
         DisplayData data = requireDisplay(sender, args[1]);
@@ -299,7 +299,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         if (args.length != 3) {
-            sendUsage(sender, "/" + label + " setspeed <id> <valor>");
+            sendUsage(sender, "/" + label + " setspeed <id> <value>");
             return true;
         }
         DisplayData data = requireDisplay(sender, args[1]);
@@ -337,7 +337,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         if (args.length != 3) {
-            sendUsage(sender, "/" + label + " setbobheight <id> <valor>");
+            sendUsage(sender, "/" + label + " setbobheight <id> <value>");
             return true;
         }
         DisplayData data = requireDisplay(sender, args[1]);
@@ -356,7 +356,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         if (args.length != 3) {
-            sendUsage(sender, "/" + label + " setbobSpeed <id> <valor>");
+            sendUsage(sender, "/" + label + " setbobSpeed <id> <value>");
             return true;
         }
         DisplayData data = requireDisplay(sender, args[1]);
@@ -400,7 +400,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         if (args.length != 3) {
-            sendUsage(sender, "/" + label + " setpermission <id> <permissao/none>");
+            sendUsage(sender, "/" + label + " setpermission <id> <permission/none>");
             return true;
         }
         DisplayData data = requireDisplay(sender, args[1]);

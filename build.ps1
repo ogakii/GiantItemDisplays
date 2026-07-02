@@ -24,7 +24,7 @@ function Get-MavenCommand {
     $zipPath = Join-Path $toolsDir "apache-maven-$mavenVersion-bin.zip"
     $url = "https://archive.apache.org/dist/maven/maven-3/$mavenVersion/binaries/apache-maven-$mavenVersion-bin.zip"
 
-    Write-Host "Maven nao esta no PATH. Baixando Apache Maven $mavenVersion..."
+    Write-Host "Maven is not on PATH. Downloading Apache Maven $mavenVersion..."
     Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $zipPath
     Expand-Archive -LiteralPath $zipPath -DestinationPath $toolsDir -Force
 

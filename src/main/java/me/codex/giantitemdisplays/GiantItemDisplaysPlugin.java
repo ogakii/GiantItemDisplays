@@ -40,7 +40,7 @@ public final class GiantItemDisplaysPlugin extends JavaPlugin {
         }
 
         displayManager.loadAll();
-        getLogger().info("GiantItemDisplays carregado. Plugin enviado por Ogaki.");
+        getLogger().info("GiantItemDisplays loaded. Plugin submitted by Ogaki.");
 
         DisplayCommand displayCommand = new DisplayCommand(this, displayManager, langManager);
         PluginCommand command = getCommand("gid");

@@ -33,8 +33,8 @@ public final class CollisionManager {
         int maxY = minY + Math.max(1, (int) Math.ceil(data.hitboxHeight())) - 1;
         int created = 0;
 
-        // ItemDisplay nao possui colisao fisica real. Este modo cria uma colisao fake
-        // usando apenas blocos de ar, registrando cada posicao para limpeza futura.
+        // ItemDisplay does not provide real physical collision. This mode creates
+        // fake collision using only air blocks, tracking each position for cleanup.
         for (int y = minY; y <= maxY && created < maxBlocks; y++) {
             for (int x = minX; x <= maxX && created < maxBlocks; x++) {
                 for (int z = minZ; z <= maxZ && created < maxBlocks; z++) {

@@ -369,7 +369,7 @@ public final class DisplayManager {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
             }
         } catch (RuntimeException exception) {
-            plugin.getLogger().warning("Erro ao executar comando do display " + data.id() + ": " + exception.getMessage());
+            plugin.getLogger().warning("Could not run command for display " + data.id() + ": " + exception.getMessage());
             plugin.lang().send(player, "command-error");
         }
     }
