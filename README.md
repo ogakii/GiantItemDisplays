@@ -23,7 +23,7 @@ Professional Paper plugin for interactive giant item displays. It uses `ItemDisp
 
 ## Installation
 
-1. Download or build `GiantItemDisplays-1.0.6.jar`.
+1. Download or build `GiantItemDisplays-1.0.7.jar`.
 2. Put the jar in your Paper server `plugins` folder.
 3. Start or restart the server.
 4. Edit `plugins/GiantItemDisplays/config.yml` and `lang.yml` if needed.
@@ -45,7 +45,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -Clean
 The compiled jar is created at:
 
 ```text
-target/GiantItemDisplays-1.0.6.jar
+target/GiantItemDisplays-1.0.7.jar
 ```
 
 ## Smooth Animation
@@ -55,8 +55,9 @@ The default animation task runs every tick and uses Display interpolation to kee
 ```yaml
 settings:
   animation-tick-rate: 1
-  display-interpolation-duration: 4
+  display-interpolation-duration: 6
   center-interaction-hitbox: true
+  command-dispatch-delay-ticks: 1
 ```
 
 When upgrading from an older version, the plugin automatically migrates older animation defaults to these smoother values.
@@ -71,6 +72,22 @@ For click commands, set only the command that should run after the click:
 Command values starting with `/` or `./` are normalized before execution.
 
 The clickable `Interaction` hitbox is vertically centered by default, so large hitboxes no longer sit too high above the item.
+
+## DeluxeMenus
+
+Use the built-in helper for DeluxeMenus:
+
+```text
+/gid setdeluxemenu rtp menu_name
+```
+
+It saves the click action as a console command:
+
+```text
+dm open menu_name %player%
+```
+
+The command runs one tick after the click event by default, which helps inventory menus open reliably.
 
 ## Language Files
 
@@ -122,6 +139,7 @@ Players can now click the giant item and the console will execute `rtp <player>`
 | `/gid setbobheight <id> <value>` | Sets bob height. |
 | `/gid setbobSpeed <id> <value>` | Sets bob speed. |
 | `/gid setcommand <id> <console/player> <command>` | Sets the click command. |
+| `/gid setdeluxemenu <id> <menu>` | Opens a DeluxeMenus menu for the clicking player. |
 | `/gid setpermission <id> <permission/none>` | Sets the permission required to click. |
 | `/gid sethitbox <id> <width> <height>` | Sets the invisible `Interaction` hitbox. |
 | `/gid setcollision <id> <none/interaction/barrier>` | Sets the collision mode. |

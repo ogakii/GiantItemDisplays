@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.7
+
+- Added `/gid setdeluxemenu <id> <menu>` for DeluxeMenus compatibility.
+- DeluxeMenus helper saves `dm open <menu> %player%` as a console command.
+- Added `settings.command-dispatch-delay-ticks` so GUI-opening commands run one tick after the click event.
+- Increased default Display interpolation duration to 6 for smoother rotation.
+
 ## 1.0.6
 
 - Centered the invisible `Interaction` hitbox vertically around the display.

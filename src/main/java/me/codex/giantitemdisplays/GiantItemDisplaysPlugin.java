@@ -93,8 +93,12 @@ public final class GiantItemDisplaysPlugin extends JavaPlugin {
             getConfig().set("settings.animation-tick-rate", 1);
             changed = true;
         }
-        if (getConfig().getInt("settings.display-interpolation-duration", 4) < 4) {
-            getConfig().set("settings.display-interpolation-duration", 4);
+        if (getConfig().getInt("settings.display-interpolation-duration", 6) < 6) {
+            getConfig().set("settings.display-interpolation-duration", 6);
+            changed = true;
+        }
+        if (!getConfig().contains("settings.command-dispatch-delay-ticks")) {
+            getConfig().set("settings.command-dispatch-delay-ticks", 1);
             changed = true;
         }
         if (changed) {

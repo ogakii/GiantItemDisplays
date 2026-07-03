@@ -36,6 +36,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
             "setbobheight",
             "setbobspeed",
             "setcommand",
+            "setdeluxemenu",
             "setpermission",
             "sethitbox",
             "setcollision",
@@ -57,7 +58,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-            sendUsage(sender, "/" + label + " <create|remove|list|teleport|movehere|setitem|setscale|setscale3d|setrotation|setspin|setspeed|setbob|setbobheight|setbobSpeed|setcommand|setpermission|sethitbox|setcollision|setglow|credits|reload>");
+            sendUsage(sender, "/" + label + " <create|remove|list|teleport|movehere|setitem|setscale|setscale3d|setrotation|setspin|setspeed|setbob|setbobheight|setbobSpeed|setcommand|setdeluxemenu|setpermission|sethitbox|setcollision|setglow|credits|reload>");
             return true;
         }
 
@@ -78,6 +79,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
             case "setbobheight" -> setBobHeight(sender, label, args);
             case "setbobspeed" -> setBobSpeed(sender, label, args);
             case "setcommand" -> setCommand(sender, label, args);
+            case "setdeluxemenu" -> setDeluxeMenu(sender, label, args);
             case "setpermission" -> setPermission(sender, label, args);
             case "sethitbox" -> setHitbox(sender, label, args);
             case "setcollision" -> setCollision(sender, label, args);
@@ -375,7 +377,7 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         if (args.length < 4) {
-            sendUsage(sender, "/" + label + " setcommand <id> <console/player> <comando>");
+            sendUsage(sender, "/" + label + " setcommand <id> <console/player> <command>");
             return true;
         }
         DisplayData data = requireDisplay(sender, args[1]);
@@ -392,6 +394,26 @@ public final class DisplayCommand implements CommandExecutor, TabCompleter {
         data.setCommandValue(command);
         displayManager.saveAll();
         lang.send(sender, "command-set", Map.of("id", data.id(), "executor", executor, "command", command));
+        return true;
+    }
+
+    private boolean setDeluxeMenu(CommandSender sender, String label, String[] args) {
+        if (!require(sender, "giantitemdisplays.create")) {
+            return true;
+        }
+        if (args.length != 3) {
+            sendUsage(sender, "/" + label + " setdeluxemenu <id> <menu>");
+            return true;
+        }
+        DisplayData data = requireDisplay(sender, args[1]);
+        if (data == null) {
+            return true;
+        }
+        String menu = args[2];
+        data.setCommandExecutor("console");
+        data.setCommandValue("dm open " + menu + " %player%");
+        displayManager.saveAll();
+        lang.send(sender, "deluxemenu-set", Map.of("id", data.id(), "menu", menu));
         return true;
     }
 

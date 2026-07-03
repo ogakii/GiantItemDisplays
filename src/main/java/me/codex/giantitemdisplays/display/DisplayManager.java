@@ -226,9 +226,7 @@ public final class DisplayManager {
         }
 
         markClick(player, data.id());
-        if (!runDisplayCommand(player, data, command)) {
-            return true;
-        }
+        runDisplayCommand(player, data, command);
         plugin.lang().send(player, "click-success", Map.of("id", data.id()));
         return true;
     }
@@ -378,7 +376,7 @@ public final class DisplayManager {
     }
 
     private int animationInterpolationDuration() {
-        return Math.max(1, plugin.getConfig().getInt("settings.display-interpolation-duration", 4));
+        return Math.max(1, plugin.getConfig().getInt("settings.display-interpolation-duration", 6));
     }
 
     private String preparedCommand(Player player, DisplayData data) {
@@ -393,7 +391,17 @@ public final class DisplayManager {
         return command;
     }
 
-    private boolean runDisplayCommand(Player player, DisplayData data, String command) {
+    private void runDisplayCommand(Player player, DisplayData data, String command) {
+        Runnable task = () -> dispatchPreparedCommand(player, data, command);
+        long delay = Math.max(0L, plugin.getConfig().getLong("settings.command-dispatch-delay-ticks", 1L));
+        if (delay == 0L) {
+            task.run();
+        } else {
+            Bukkit.getScheduler().runTaskLater(plugin, task, delay);
+        }
+    }
+
+    private void dispatchPreparedCommand(Player player, DisplayData data, String command) {
         try {
             boolean handled;
             if ("player".equalsIgnoreCase(data.commandExecutor())) {
@@ -404,11 +412,9 @@ public final class DisplayManager {
             if (!handled) {
                 plugin.lang().send(player, "command-error");
             }
-            return handled;
         } catch (RuntimeException exception) {
             plugin.getLogger().warning("Could not run command for display " + data.id() + ": " + exception.getMessage());
             plugin.lang().send(player, "command-error");
-            return false;
         }
     }
 

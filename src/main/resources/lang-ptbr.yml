@@ -18,6 +18,7 @@ display-moved: "<green>Display <white>%id%</white> movido para sua localizacao a
 item-required: "<red>Segure um item na mao principal."
 item-set: "<green>Item do display <white>%id%</white> atualizado."
 command-set: "<green>Comando de <white>%id%</white> definido como <white>%executor%: %command%</white>."
+deluxemenu-set: "<green>Menu DeluxeMenus de <white>%id%</white> definido para <white>%menu%</white>."
 command-not-configured: "<red>Esse display nao tem comando configurado."
 permission-set: "<green>Permissao de clique de <white>%id%</white> definida como <white>%permission%</white>."
 scale-set: "<green>Escala de <white>%id%</white> definida para <white>%scale%</white>."

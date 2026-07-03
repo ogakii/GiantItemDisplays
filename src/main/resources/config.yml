@@ -1,7 +1,8 @@
 settings:
   animation-tick-rate: 1
-  display-interpolation-duration: 4
+  display-interpolation-duration: 6
   center-interaction-hitbox: true
+  command-dispatch-delay-ticks: 1
   default-scale: 3.0
   default-hitbox-width: 2.0
   default-hitbox-height: 2.0
