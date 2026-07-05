@@ -12,9 +12,10 @@ Professional Paper plugin for interactive giant item displays. It uses `ItemDisp
 ## Preview
 
 <p align="center">
-  <img src="docs/images/gid-preview-01.png" alt="GiantItemDisplays item display in a dark lobby scene" width="32%" />
-  <img src="docs/images/gid-preview-02.png" alt="GiantItemDisplays item display floating in a server plaza" width="32%" />
-  <img src="docs/images/gid-preview-03.png" alt="GiantItemDisplays item display with cinematic lighting" width="32%" />
+  <img src="docs/images/gid-preview-04.png" alt="GiantItemDisplays item display with warm cinematic lighting" width="24%" />
+  <img src="docs/images/gid-preview-01.png" alt="GiantItemDisplays item display in a dark lobby scene" width="24%" />
+  <img src="docs/images/gid-preview-02.png" alt="GiantItemDisplays item display floating in a server plaza" width="24%" />
+  <img src="docs/images/gid-preview-03.png" alt="GiantItemDisplays item display with cinematic lighting" width="24%" />
 </p>
 
 ## Highlights
