@@ -16,6 +16,7 @@ Professional Paper plugin for interactive giant item displays. It uses `ItemDisp
   <img src="docs/images/gid-preview-02.png" alt="GiantItemDisplays item display floating in a server plaza" width="32%" />
   <img src="docs/images/gid-preview-03.png" alt="GiantItemDisplays item display with cinematic lighting" width="32%" />
 </p>
+
 ## Highlights
 
 - Giant item visuals with configurable X/Y/Z scale.
